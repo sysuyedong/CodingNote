@@ -18,5 +18,24 @@
     <ClCompile Include="basic_api.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TestLuaConfig.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TestLuaConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lua_config.lua">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

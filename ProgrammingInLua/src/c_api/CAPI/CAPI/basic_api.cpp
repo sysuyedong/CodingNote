@@ -1,3 +1,4 @@
+#include "TestLuaConfig.h"
 #include <map>
 #include <iostream>
 #include <string>
@@ -15,53 +16,63 @@ extern "C"
 
 using namespace std;
 
+void BasicAPI(lua_State *L);
 void StackDump(lua_State *L);
+enum TestOption
+{
+	Exit,
+	Basic,
+	LuaConfig,
+};
+
+const string TestOptionArr[] { "Exit", "BasicAPI", "ReadLuaConfig" };
+TestLuaConfig test_lua_config;
 
 int main(int argc, char* argv[])
 {
-	char buff[256];
-	int error;
-	lua_State *l = lua_open();
-	luaL_openlibs(l);
-	lua_pushnumber(l, 1);
-	lua_pushboolean(l, 1);
-	StackDump(l);
+	lua_State *L = lua_open();
+	luaL_openlibs(L);
 
-	while (fgets(buff, sizeof(buff), stdin) != NULL)
+	TestOption test_option;
+	int temp;
+	cout << "Input Test Option:" << endl;
+	for (int i = 0; i < TestOptionArr->length() - 1; ++i)
 	{
-		error = luaL_loadbuffer(l, buff, strlen(buff), "line") || lua_pcall(l, 0, 0, 0);
-		if (error)
-		{
-			fprintf(stderr, "%s", lua_tostring(l, -1));
-			lua_pop(l, 1);
-		}
+		cout << i << ": " << TestOptionArr[i] << endl;
 	}
-	lua_close(l);
+	cin >> temp;
+	test_option = (TestOption)temp;
+
+	switch (test_option)
+	{
+	case Exit:
+		break;
+	case Basic:
+		BasicAPI(L);
+		break;
+	case LuaConfig:
+		test_lua_config.LoadLuaConfig(L, "lua_config.lua");
+		break;
+	default:
+		break;
+	}
+
+	lua_close(L);
 
 	return 0;
 }
 
-void StackDump(lua_State *L)
+void BasicAPI(lua_State *L)
 {
-	int n = lua_gettop(L);
-	for (int i = 1; i <= n; ++i)
+	char buff[256];
+	int error;
+	while (fgets(buff, sizeof(buff), stdin) != NULL)
 	{
-		int t = lua_type(L, i);
-		switch (t)
+		error = luaL_loadbuffer(L, buff, strlen(buff), "line") || lua_pcall(L, 0, 0, 0);
+		if (error)
 		{
-		case LUA_TBOOLEAN:
-			printf("bool: %s", lua_toboolean(L, i) ? "true" : "false");
-			break;
-		case LUA_TSTRING:
-			printf("string: %s", lua_tostring(L, i));
-			break;
-		case LUA_TNUMBER:
-			printf("number: %g", lua_tonumber(L, i));
-			break;
-		default:
-			printf("other value: %s", lua_typename(L, i));
-			break;
+			fprintf(stderr, "%s", lua_tostring(L, -1));
+			lua_pop(L, 1);
 		}
-		printf("\n");
 	}
 }
