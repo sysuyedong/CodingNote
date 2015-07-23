@@ -56,7 +56,65 @@ int  lua_pcall(lua_State *L, int nargs, int nresults, int errfunc);		//调用栈
 ```
 * **调用C函数**  
 `Lua`调用`C`函数，使用栈进行交互，用来交互的栈不是全局变量，每一个函数都有他自己的私有栈，第一个参数总是在这个私有栈的`index = 1`的位置。  
-一个`Lua`库实际上是一个定义了一系列`Lua`函数的chunk，并将这些函数保存在适当的地方，通常作为`table` 的域来保存。`Lua`的`C`库就是这样实现的。
+一个`Lua`库实际上是一个定义了一系列`Lua`函数的chunk，并将这些函数保存在适当的地方，通常作为`table` 的域来保存。`Lua`的`C`库就是这样实现的。  
+在宿主程序中调用C函数
+```C
+//注册被Lua调用的C函数的格式，以a+b为例
+static int func(lua_State *L)
+{
+	//从栈中获取函数参数并检查合法性，1表示Lua调用时的第一个参数，以此类推
+	double arg1 = luaL_checknumber(L, 1);
+	double arg2 = luaL_checknumber(L, 2);
+	
+	//将函数结果入栈，如果有多个返回值，可以多次入栈
+	lua_pushnumber(L, arg1 + arg2);
+	
+	//返回值表示该函数的返回值的数量
+	return 1;
+}
+
+int main()
+{
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	
+	//注册被Lua调用的C函数，参数"add"表示Lua调用时使用的全局函数名，func为被调用的C函数
+	lua_register(L, "add", func);
+	luaL_dostring("print(add(1, 2))");
+	
+	lua_close(L);
+	return 0;
+}
+```
+C函数库
+```C
+//注册被Lua调用的C函数的格式，以a+b为例，函数必须以C的形式被导出
+extern "C" int func(lua_State *L)
+{
+	//从栈中获取函数参数并检查合法性，1表示Lua调用时的第一个参数，以此类推
+	double arg1 = luaL_checknumber(L, 1);
+	double arg2 = luaL_checknumber(L, 2);
+	
+	//将函数结果入栈，如果有多个返回值，可以多次入栈
+	lua_pushnumber(L, arg1 + arg2);
+	
+	//返回值表示该函数的返回值的数量
+	return 1;
+}
+
+static luaL_Reg mylibs[] = 
+{
+	{"add", func},
+	{NULLL, NULL},
+};
+
+//注册mylibs库，Lua中使用该库的用法：testlibs.add(1, 2)
+extern "C" __declspec(dllexport)
+int luaopen_testlibs(lua_State* L) 
+{
+	luaL_newlib(L, mylibs);
+}
+```
 * **字符串处理**  
 当`C`函数接受一个来自`lua`的字符串作为参数时，有两个规则必须遵守：当字符串正在被访问的时候不要将其出栈；永远不要修改字符串。  
 当`C`函数需要创建一个字符串返回给`lua`的时候，`C`代码负责缓冲区的分配和释放，负责处理缓冲溢出等情况。
