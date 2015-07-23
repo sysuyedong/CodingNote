@@ -42,6 +42,10 @@ void lua_getglobal(lua_State *L, const char *name);			//等于lua_getfield(L, LU
 void lua_settable(lua_State *L, int idx);					//以栈顶元素为value，栈顶下一元素为key，设置指定索引的表的值
 void lua_setfield(lua_State *L, int idx, const char *k);	//弹出栈顶元素，并设置为指定索引的表对应key的值
 void lua_setglobal(lua_State *L, const char *name);			//等于lua_setfield(L, LUA_GLOBALSINDEX, (name))。设置全局变量的值
+void lua_rawgeti(lua_State *L, int idx, int n);				//获得idx索引的表以n为key的值
+void lua_rawget(lua_State *L, int idx);						//获得idx索引的表以栈顶为key的值
+void lua_rawseti(lua_State *L, int idx, int n);				//设置idx索引的表以n为key的值
+void lua_rawset(lua_State *L, int idx);						//设置idx索引的表以栈顶下一个元素为key的值
 ```
 * **调用函数**  
 使用API调用函数的方法是很简单的：首先，将被调用的函数入栈；第二，依次将所有参数入栈；第三，使用`lua_pcall`调用函数；最后，从栈中获取函数执行返回的结果。  
@@ -51,5 +55,12 @@ void lua_setglobal(lua_State *L, const char *name);			//等于lua_setfield(L, LU
 int  lua_pcall(lua_State *L, int nargs, int nresults, int errfunc);		//调用栈顶函数，指定参数格式nargs，返回结果个数，nresults，和错误函数
 ```
 * **调用C函数**  
-Lua调用C函数，使用栈进行交互，用来交互的栈不是全局变量，每一个函数都有他自己的私有栈，第一个参数总是在这个私有栈的`index = 1`的位置。  
-一个Lua库实际上是一个定义了一系列Lua函数的chunk，并将这些函数保存在适当的地方，通常作为table 的域来保存。Lua的C库就是这样实现的。
+`Lua`调用`C`函数，使用栈进行交互，用来交互的栈不是全局变量，每一个函数都有他自己的私有栈，第一个参数总是在这个私有栈的`index = 1`的位置。  
+一个`Lua`库实际上是一个定义了一系列`Lua`函数的chunk，并将这些函数保存在适当的地方，通常作为`table` 的域来保存。`Lua`的`C`库就是这样实现的。
+* **字符串处理**  
+当`C`函数接受一个来自`lua`的字符串作为参数时，有两个规则必须遵守：当字符串正在被访问的时候不要将其出栈；永远不要修改字符串。  
+当`C`函数需要创建一个字符串返回给`lua`的时候，`C`代码负责缓冲区的分配和释放，负责处理缓冲溢出等情况。
+```C
+void lua_concat(lua_State *L, int n);		//连接栈顶开始的n个字符串，弹出这n个字符串并压栈结果
+const char *lua_pushfstring(lua_State *L, const char *fmt, ...);	//根据格式串fmt的要求创建一个新的字符串。
+```
