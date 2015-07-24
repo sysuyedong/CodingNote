@@ -65,3 +65,8 @@ double TestLuaConfig::GetField(lua_State *L, int index, const char* key)
 	lua_pop(L, 1);
 	return value;
 }
+
+void TestLuaConfig::DoTest(lua_State *L)
+{
+	LoadLuaConfig(L, "lua_config.lua");
+}

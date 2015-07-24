@@ -41,6 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.exe</TargetExt>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -79,10 +81,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="basic_api.cpp" />
+    <ClCompile Include="TestBase.cpp" />
+    <ClCompile Include="TestCallFunc.cpp" />
     <ClCompile Include="TestLuaConfig.cpp" />
     <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TestBase.h" />
+    <ClInclude Include="TestCallFunc.h" />
     <ClInclude Include="TestLuaConfig.h" />
     <ClInclude Include="Tools.h" />
   </ItemGroup>

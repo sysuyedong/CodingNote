@@ -113,6 +113,7 @@ extern "C" __declspec(dllexport)
 int luaopen_testlibs(lua_State* L) 
 {
 	luaL_newlib(L, mylibs);
+	return 1;
 }
 ```
 * **字符串处理**  
@@ -122,3 +123,5 @@ int luaopen_testlibs(lua_State* L)
 void lua_concat(lua_State *L, int n);		//连接栈顶开始的n个字符串，弹出这n个字符串并压栈结果
 const char *lua_pushfstring(lua_State *L, const char *fmt, ...);	//根据格式串fmt的要求创建一个新的字符串。
 ```
+* **注册表**  
+使用`LUA_REGISTRYINDEX`索引来保存注册表中的`Lua`值。任何`C`库都可以在这张表里保存数据， 为了防止冲突，可以使用保护库名前缀的名字作为key值。注册表中的整数key用于应用机制`luaL_ref`。
