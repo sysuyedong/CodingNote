@@ -125,3 +125,27 @@ const char *lua_pushfstring(lua_State *L, const char *fmt, ...);	//根据格式�
 ```
 * **注册表**  
 使用`LUA_REGISTRYINDEX`索引来保存注册表中的`Lua`值。任何`C`库都可以在这张表里保存数据， 为了防止冲突，可以使用保护库名前缀的名字作为key值。注册表中的整数key用于应用机制`luaL_ref`。
+* **闭包**  
+一个C函数和它的upvalues的组合称为闭包。upvalues为函数能访问的外部局部变量。
+```C
+static int counter(lua_State *L)
+{
+	double val = lua_tonumber(L, lua_upvalveindex(1));
+	lua_pushnumber(L, ++val);
+	lua_pushvalue(L, -1);
+	lua_replace(L, lua_upvalueindex(1));
+	return 1;
+}
+
+int newCounter(lua_State *L)
+{
+	lua_pushnumber(L, 0);
+	//第二个参数为基本函数，第三个参数是upvalues的个数
+	lua_pushcclosure(L, &counter, 1);
+	return 1;
+}
+```
+* **Userdata**
+```C
+void *lua_newuserdata(lua_State *L, size_t size);		//按照指定size的大小分配一段内存放入栈内，并返回这个地址
+```

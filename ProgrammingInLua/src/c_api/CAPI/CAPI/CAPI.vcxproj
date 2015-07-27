@@ -84,12 +84,14 @@
     <ClCompile Include="TestBase.cpp" />
     <ClCompile Include="TestCallFunc.cpp" />
     <ClCompile Include="TestLuaConfig.cpp" />
+    <ClCompile Include="TestUserdata.cpp" />
     <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestBase.h" />
     <ClInclude Include="TestCallFunc.h" />
     <ClInclude Include="TestLuaConfig.h" />
+    <ClInclude Include="TestUserdata.h" />
     <ClInclude Include="Tools.h" />
   </ItemGroup>
   <ItemGroup>

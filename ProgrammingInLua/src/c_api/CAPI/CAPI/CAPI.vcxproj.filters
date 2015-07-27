@@ -30,6 +30,9 @@
     <ClCompile Include="TestBase.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TestUserdata.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestLuaConfig.h">
@@ -42,6 +45,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="TestBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TestUserdata.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
