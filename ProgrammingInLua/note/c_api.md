@@ -126,7 +126,7 @@ const char *lua_pushfstring(lua_State *L, const char *fmt, ...);	//根据格式�
 * **注册表**  
 使用`LUA_REGISTRYINDEX`索引来保存注册表中的`Lua`值。任何`C`库都可以在这张表里保存数据， 为了防止冲突，可以使用保护库名前缀的名字作为key值。注册表中的整数key用于应用机制`luaL_ref`。
 * **闭包**  
-一个C函数和它的upvalues的组合称为闭包。upvalues为函数能访问的外部局部变量。
+一个`C`函数和它的upvalues的组合称为闭包。upvalues为函数能访问的外部局部变量。
 ```C
 static int counter(lua_State *L)
 {
@@ -148,4 +148,10 @@ int newCounter(lua_State *L)
 * **Userdata**
 ```C
 void *lua_newuserdata(lua_State *L, size_t size);		//按照指定size的大小分配一段内存放入栈内，并返回这个地址
+```
+* **Metatable**  
+```C
+int luaL_newmetatable(lua_State *L, const char* tname); 			//栈顶创建metatable，建立表和registry中类型名的双向关系(分别以tname为表的key和以表为tname的key)
+void luaL_getmetatable(lua_State *L, const char* tname); 			//获取registry中tname对应的表
+void* luaL_checkudata(lua_State *L, int index, const char* tname);	//检查指定索引的元素是否为带有给定tname的metatable的useratum，如果是，返回useratum的地址，否则返回NULL
 ```

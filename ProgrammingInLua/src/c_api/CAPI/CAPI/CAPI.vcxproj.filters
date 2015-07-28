@@ -55,5 +55,8 @@
     <None Include="lua_config.lua">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="lua_array.lua">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

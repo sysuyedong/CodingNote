@@ -51,3 +51,13 @@ void Tools::CallFunction(lua_State *L, const char* func, const char* fmt, ...)
 {
 
 }
+
+void Tools::LoadFile(lua_State *L, const char* path)
+{
+	int error = luaL_loadfile(L, path) || lua_pcall(L, 0, 0, 0);
+	if (error)
+	{
+		Tools::Error(L, "fail");
+		return;
+	}
+}

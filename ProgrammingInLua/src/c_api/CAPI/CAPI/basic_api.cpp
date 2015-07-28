@@ -1,6 +1,7 @@
 #include "TestLuaConfig.h"
 #include "TestBase.h"
 #include "TestCallFunc.h"
+#include "TestUserdata.h"
 #include <map>
 #include <iostream>
 #include <string>
@@ -26,9 +27,10 @@ enum TestOption
 	Basic,
 	LuaConfig,
 	CallFunc,
+	Userdata,
 };
 
-const string TestOptionArr[] { "Exit", "BasicAPI", "ReadLuaConfig", "Test Call Function", };
+const string TestOptionArr[] { "Exit", "BasicAPI", "ReadLuaConfig", "Test Call Function", "Test Userdata" };
 TestBase *test_ptr;
 
 int main(int argc, char* argv[])
@@ -38,12 +40,14 @@ int main(int argc, char* argv[])
 
 	TestOption test_option;
 	int temp;
+	int size = sizeof(TestOptionArr) / sizeof(string);
 	cout << "Input Test Option:" << endl;
-	for (int i = 0; i < TestOptionArr->length(); ++i)
+	for (int i = 0; i < size; ++i)
 	{
 		cout << i << ": " << TestOptionArr[i] << endl;
 	}
 	cin >> temp;
+	cout << "==============================================" << endl;
 	test_option = (TestOption)temp;
 
 	switch (test_option)
@@ -59,6 +63,10 @@ int main(int argc, char* argv[])
 		break;
 	case CallFunc:
 		test_ptr = new TestCallFunc();
+		test_ptr->DoTest(L);
+		break;
+	case Userdata:
+		test_ptr = new TestUserdata();
 		test_ptr->DoTest(L);
 		break;
 	default:

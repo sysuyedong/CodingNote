@@ -2,14 +2,6 @@
 #include "TestBase.h"
 #include <lua.hpp>
 
-#define DLL_EXPORTS 1
-
-#ifdef DLL_EXPORTS
-#define DLL_API __declspec(dllexport)
-#else
-#define DLL_API __declspec(dllimport)
-#endif
-
 extern "C"
 {
 	int Sub(lua_State *L);

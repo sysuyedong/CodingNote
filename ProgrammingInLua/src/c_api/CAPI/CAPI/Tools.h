@@ -14,5 +14,6 @@ public:
 	static void Error(lua_State *L, const char* fmt, ...);
 	static void StackDump(lua_State *L);
 	static void CallFunction(lua_State *L, const char* func, const char* fmt, ...);
+	static void LoadFile(lua_State *L, const char* path);
 };
 

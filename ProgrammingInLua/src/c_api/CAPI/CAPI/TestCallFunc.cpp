@@ -1,7 +1,4 @@
 #include "TestCallFunc.h"
-#include <iostream>
-
-using namespace std;
 
 TestCallFunc::TestCallFunc()
 {
