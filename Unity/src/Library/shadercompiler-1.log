@@ -1,0 +1,48 @@
+Base path: D:/Unity4.6.1/Editor/Data
+Pipe name: \\.\pipe\UnityShaderCompiler-1-3772
+Cmd: getPlatforms
+Cmd: preprocess
+  error: 2 plat 12 at (26): Syntax error
+  insize=628 outsize=411 ok=0
+Cmd: preprocess
+  error: 2 plat 1 at (25): undefined variable "Power" unable to find compatible overloaded function "pow(float4, error)"
+  insize=629 outsize=1190 ok=0
+Cmd: preprocess
+  insize=630 outsize=1291 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4201 outsize=2387 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=4201 outsize=1258 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=2205 outsize=2688 kw=POINT ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=2205 outsize=1558 kw=POINT ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=1868 outsize=1477 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1868 outsize=632 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3946 outsize=2663 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3946 outsize=1201 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=2205 outsize=1632 kw=DIRECTIONAL ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=2205 outsize=1144 kw=DIRECTIONAL ok=1
+Cmd: preprocess
+  error: 2 plat 12 at (30): Syntax error
+  insize=898 outsize=411 ok=0
+Cmd: preprocess
+  insize=897 outsize=909 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4487 outsize=2387 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=4487 outsize=1258 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=2491 outsize=2688 kw=POINT ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=2491 outsize=1558 kw=POINT ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=2491 outsize=1632 kw=DIRECTIONAL ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=2491 outsize=1144 kw=DIRECTIONAL ok=1
