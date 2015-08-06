@@ -1,10 +1,10 @@
 # Unity Shader
 --------------
 > 参考:
-> 1. [Unity ShaderLab学习总结](http://www.jianshu.com/p/7b9498e58659)
-> 2. Unity Shaders and Effects Cookbook
-> 3. Unity4.x从入门到精通
-> 4. Cg Tutorial
+> 1. [Unity ShaderLab 学习总结](http://www.jianshu.com/p/7b9498e58659)
+> 2. [Unity Shaders and Effects Cookbook](http://book.douban.com/subject/24835416/)
+> 3. [Unity4.x 从入门到精通](http://book.douban.com/subject/25808326/)
+> 4. [Cg Tutorial](http://book.douban.com/subject/1783861/)
 
 ## 类型  
 * 表面着色器(Surface Shaders)：可以与灯光、阴影、投射器进行交互。表面着色器的抽象层次较高，可以容易地以简洁方式实现复杂的着色器效果。可同时工作在前向渲染(Forward Shading)以及延迟渲染(Deferred Shading)模式下。以Cg/HLSL语言编写。
