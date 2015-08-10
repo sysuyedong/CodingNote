@@ -1,45 +1,51 @@
-# Unity Shader
+# Unity Shader  
 --------------
-> 参考:
-> 1. [Unity ShaderLab 学习总结](http://www.jianshu.com/p/7b9498e58659)
-> 2. [Unity Shaders and Effects Cookbook](http://book.douban.com/subject/24835416/)
-> 3. [Unity4.x 从入门到精通](http://book.douban.com/subject/25808326/)
-> 4. [Cg Tutorial](http://book.douban.com/subject/1783861/)
+> 参考:  
+> 1. [Unity ShaderLab 学习总结](http://www.jianshu.com/p/7b9498e58659)  
+> 2. [Unity Shaders and Effects Cookbook](http://book.douban.com/subject/24835416/)  
+> 3. [Unity4.x 从入门到精通](http://book.douban.com/subject/25808326/)  
+> 4. [Cg Tutorial](http://book.douban.com/subject/1783861/)  
+
+## 基础知识
+
+### 渲染管线
+[渲染管线](http://www.cnblogs.com/alonecat06/archive/2012/09/24/2700747.html)
+渲染管线的基本构成由3个阶段组成：应用程序，几何和光栅化。每一个阶段都可能是一个管线，或者是并行的阶段。
 
 ## 类型  
 * 表面着色器(Surface Shaders)：可以与灯光、阴影、投射器进行交互。表面着色器的抽象层次较高，可以容易地以简洁方式实现复杂的着色器效果。可同时工作在前向渲染(Forward Shading)以及延迟渲染(Deferred Shading)模式下。以Cg/HLSL语言编写。
 * 顶点和片段着色器(Vertex and fragment Shaders)：处理一些表面着色器无法处理的酷炫效果，或者不需要与灯光进行交互，或者是全屏图像效果。它能灵活地实现需要的效果，但是很难与Unity的渲染管线完美集成。用Cg/HLSL语言编写。
 * 固定功能管线着色器(Fixed Function Shaders)：在不支持可编程管线的硬件下使用。完全以ShaderLab语言编写。
 
-## ShaderLab结构
+## ShaderLab结构  
 ```shader
-Shader "Custom/NewShader" {		//Shader的名称
-	Properties {
-		_MainTex ("Base (RGB)", 2D) = "white" {}
-		//在这里定义Shader中使用的属性，如颜色，向量，纹理
+	Shader "Custom/NewShader" {		//Shader的名称
+		Properties {
+			_MainTex ("Base (RGB)", 2D) = "white" {}
+			//在这里定义Shader中使用的属性，如颜色，向量，纹理
+		}
+		//子着色器
+		SubShader {
+		} 
+		SubShader {
+		}
+		FallBack "Diffuse"		//备选Shader
 	}
-	//子着色器
-	SubShader {
-	} 
-	SubShader {
-	}
-	FallBack "Diffuse"		//备选Shader
-}
 ```
 ### Properties属性定义：
 用来定义着色器中使用的贴图资源或者数值参数。这些属性会在Inspector中显示以方便修改。属性定义如下：
 ```
-名称("显示名称", Vector) = 默认向量值				定义一个四维向量属性
-名称("显示名称", Color) = 默认颜色值				定义一个颜色(取值为0~1的四维向量)
-名称("显示名称", Float) = 默认浮点数值				定义一个浮点数属性
-名称("显示名称", Range(min, max)) = 默认浮点数值	定义一个浮点数范围属性，取值为min~max
-名称("显示名称", 2D) = 默认贴图名称{选项}			定义一个2D纹理属性
-名称("显示名称", Rect) = 默认贴图名称{选项}			定义一个矩形纹理属性(非2的n次幂)
-名称("显示名称", Cube) = 默认贴图名称{选项}			定义一个立方体纹理属性
-
-选项指的是一些纹理的可选参数：
-TexGen：纹理生成模式，包括ObjectLinear、EyeLinear、SphereMap、CubeReflect、CubeNormal
-LightmapMode：如果使用该选项，纹理将受渲染器的光照贴图参数影响
+	名称("显示名称", Vector) = 默认向量值				定义一个四维向量属性
+	名称("显示名称", Color) = 默认颜色值				定义一个颜色(取值为0~1的四维向量)
+	名称("显示名称", Float) = 默认浮点数值				定义一个浮点数属性
+	名称("显示名称", Range(min, max)) = 默认浮点数值	定义一个浮点数范围属性，取值为min~max
+	名称("显示名称", 2D) = 默认贴图名称{选项}			定义一个2D纹理属性
+	名称("显示名称", Rect) = 默认贴图名称{选项}			定义一个矩形纹理属性(非2的n次幂)
+	名称("显示名称", Cube) = 默认贴图名称{选项}			定义一个立方体纹理属性
+	
+	选项指的是一些纹理的可选参数：
+	TexGen：纹理生成模式，包括ObjectLinear、EyeLinear、SphereMap、CubeReflect、CubeNormal
+	LightmapMode：如果使用该选项，纹理将受渲染器的光照贴图参数影响
 ```
 
 ### SubShader子着色器：

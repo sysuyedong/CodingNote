@@ -17,3 +17,10 @@
 *.exe
 *.out
 *.app
+
+# Unity
+*.meta
+CodingNote/Unity/src/obj
+CodingNote/Unity/src/Temp
+CodingNote/Unity/src/Library
+CodingNote/Unity/src/Assets/Standard Assets
