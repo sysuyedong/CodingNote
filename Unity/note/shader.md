@@ -18,6 +18,7 @@
 * 固定功能管线着色器(Fixed Function Shaders)：在不支持可编程管线的硬件下使用。完全以ShaderLab语言编写。
 
 ## ShaderLab结构  
+
 ```shader
 	Shader "Custom/NewShader" {		//Shader的名称
 		Properties {
@@ -32,8 +33,10 @@
 		FallBack "Diffuse"		//备选Shader
 	}
 ```
+
 ### Properties属性定义：
-用来定义着色器中使用的贴图资源或者数值参数。这些属性会在Inspector中显示以方便修改。属性定义如下：
+用来定义着色器中使用的贴图资源或者数值参数。这些属性会在Inspector中显示以方便修改。属性定义如下：  
+
 ```
 	名称("显示名称", Vector) = 默认向量值				定义一个四维向量属性
 	名称("显示名称", Color) = 默认颜色值				定义一个颜色(取值为0~1的四维向量)
@@ -50,7 +53,8 @@
 
 ### SubShader子着色器：
 从上到下遍历子着色器，并使用第一个能被用户设备支持的子着色器进行渲染。  
-子着色器由标签(可选)、通用状态(可选)、Pass列表组成，语法结构为：
+子着色器由标签(可选)、通用状态(可选)、Pass列表组成，语法结构为：  
+
 ```
 SubShader {
 	[Tags标签]
@@ -59,6 +63,7 @@ SubShader {
 	[Passdef ...Pass定义]
 }
 ```
+
 #### Tags
 * `"Queue"`标签，定义渲染顺序，内置的值为：
 	* `"Background"`值为1000，比如用于天空盒。
@@ -76,7 +81,8 @@ SubShader {
 * `"IgnoreProjector"`标签，值为`"true"`表示不接受Projector组件的投影
 
 #### Pass
-对于每个Pass，对象的几何体都被渲染一次。定义Pass的语法如下：
+对于每个Pass，对象的几何体都被渲染一次。定义Pass的语法如下：  
+
 ```
 Pass{
 	[Name and Tags名称和标签]
@@ -84,6 +90,7 @@ Pass{
 	[TextureSetup纹理设置]
 }
 ```
+
 * 名称和标签：定义Pass的名称和标签。可以在别的着色器中通过Pass名称来重用它。标签(键-值对)可以用来向渲染管线说明Pass的意图。
 * 渲染设置：设置图形硬件的各种状态，例如开启Alpha混合、开启雾效等。
 * 纹理设置：指定一些要使用的纹理及其混合模式。语法为`SetTexture纹理属性 {[命令选项]}`
@@ -93,7 +100,8 @@ Pass{
 
 ## 表面着色器(Surface Shaders)
 表面着色器的实现代码需要放在`CGPROGRAM .. ENDCG`代码块中，它会自己编译到各个Pass中。  
-使用`#pragma surface...`命令来指明它是一个表面着色器，如：
+使用`#pragma surface...`命令来指明它是一个表面着色器，如：  
+
 ```shader
 // #pragma surface 表面函数 光照模型 [可选参数]
 // 光照模型可以为Lambert和BlinnPhong，或者是自定义光照模型
@@ -111,7 +119,9 @@ float3 worldRefl		//世界坐标系中的反射向量
 float3 worldNormal		//世界坐标系中的法线向量
 INTERNAL_DATA			//当输入结构包含worldRefl或worldNormal且便面函数会写入输出结构的Normal字段时需包含此声明
 ```
-SurfaceOutput描述了表面的各种参数，其结构为：
+
+SurfaceOutput描述了表面的各种参数，其结构为：  
+
 ```shader
 struct SurfaceOutput{
 	half3 Albedo;		//反射光
@@ -122,7 +132,9 @@ struct SurfaceOutput{
 	half3 Alpha;		//透明度
 }
 ```
-自定义光照模型函数：
+
+自定义光照模型函数：  
+
 ```shader
 half4 LightingName(SurfaceOutput s, half3 lightDir, half atten);			//不需要视角方向的前向着色
 half4 LightingName(SurfaceOutput s, half3 lightDir, half3 viewDir half atten);		//需要视角方向的前向着色
@@ -130,7 +142,8 @@ half4 LightingName(SurfaceOutput s, half4 light);			//用于需要使用延时�
 ```
 
 ## 顶点和片段着色器(Vertex And Fragment Shaders)
-顶点和片段着色器运行在具有可编程渲染管线的硬件上，包括顶点程序(Vertex Programs)和片段程序(Fragment Programs)。固定功能管线将会关闭，编写的顶点程序会替换固定管线中的3D变换、光照、纹理坐标生成能功能；片段程序会替换掉SetTexture命令中的纹理混合模式。结构如下：
+顶点和片段着色器运行在具有可编程渲染管线的硬件上，包括顶点程序(Vertex Programs)和片段程序(Fragment Programs)。固定功能管线将会关闭，编写的顶点程序会替换固定管线中的3D变换、光照、纹理坐标生成能功能；片段程序会替换掉SetTexture命令中的纹理混合模式。结构如下：  
+
 ```shader
 Pass{
 	//通道设置

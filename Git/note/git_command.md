@@ -1,25 +1,29 @@
 # Git命令
 
-> [Pro Git](http://git-scm.com/book/zh/v1)
+> [Pro Git](http://git-scm.com/book/zh/v1)  
 > [Git 基础](http://blog.csdn.net/chun799/article/details/9095635)
 
 ## 1 取得项目的Git仓库  
 有两种取得 Git 项目仓库的方法。第一种是在现存的目录下，通过导入所有文件来创建新的 Git 仓库。第二种是从已有的 Git 仓库克隆出一个新的镜像仓库来。
 
 ### 1.1 在工作目录中初始化新仓库  
+
 ```
 git init
 git add *.c
 git add README.md
 git commit -m "basic version"
 ```
+
 初始化后，在当前目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。
 如果当前目录下有几个文件想要纳入版本控制，需要先用`git add`命令告诉 Git 开始对这些文件进行跟踪，然后提交。
 
 ### 1.2 从现有仓库克隆  
+
 ```
 git clone https://github.com/username/project_name.git [new_folder_name]
 ```
+
 在当前目录创建名为`project_name`的目录，里面包含`.git`目录，用于保存下载下来的所有版本记录，然后从中取出最新版本的文件拷贝。另外也可以指定新的目录名`new_folder_name`
 
 ## 2 记录每次更新到仓库  
