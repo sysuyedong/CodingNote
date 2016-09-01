@@ -11,7 +11,7 @@
                                         <key>kind</key>
                                         <string>software-package</string>
                                         <key>url</key>
-                                        <string>http://192.168.20.10:8200/hunter2/20160901105939_sklr20831v5.ipa</string>
+                                        <string>https://192.168.20.102/sklr2.ipa</string>
                                 </dict>
                         </array>
                         <key>metadata</key>
